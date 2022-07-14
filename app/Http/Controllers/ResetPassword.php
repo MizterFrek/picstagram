@@ -16,9 +16,9 @@ class ResetPassword extends Controller
          ]);
          if(auth()->attempt($password->only('username'))){
              dd($password);
-             // $usuario = User::find(auth()->user()->id);
-             // $usuario->password = Hash::make($password->password);
-             // $usuario->save();
+             $usuario = User::find(auth()->user()->id);
+             $usuario->password = Hash::make($password->password);
+             $usuario->save();
         }
         
         
