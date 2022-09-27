@@ -11,87 +11,100 @@ use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\ResetEmail;
 use App\Http\Controllers\ResetPassword;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/',HomeController::class)->name('home');
 
-Route::get('/crear-cuenta', 
-[RegisterController::class,'index'])->name('register');
+Route::controller(RegisterController::class)->group(function(){
+    Route::get('/crear-cuenta','index')->name('register');
 
-Route::post('/crear-cuenta', 
-[RegisterController::class,'store']);
+    Route::post('/crear-cuenta','store');
+});
 
-Route::get('/login', 
-[LoginController::class, 'index'])->name('login');
+Route::controller(LoginController::class)->group(function(){
+    Route::get('/login', 'index')
+    ->name('login');
 
-Route::post('/login', 
-[LoginController::class, 'store']);
+    Route::post('/login','store');
+});
 
-Route::post('/logout',
-[LogoutController::class,'store'])->name('logout');
+Route::controller(LogoutController::class)->group(function(){
+    Route::post('/logout','store')
+    ->name('logout');
+});
 
-//Rutas para el perfil
-Route::get('/editar-perfil',
-[PerfilController::class,'index'])->name('perfil.index');
+Route::controller(PerfilController::class)->group(function(){
+    //Rutas para el perfil
+    Route::get('/editar-perfil','index')
+    ->name('perfil.index');
 
-Route::post('/editar-perfil',
-[PerfilController::class,'store'])->name('perfil.store');
+    Route::post('/editar-perfil','store')
+    ->name('perfil.store');
 
-//cambiar email
-Route::get('/editar-perfil/{user:username}/email',
-[PerfilController::class,'editEmail'])->name('perfil.edit.email');
+    //cambiar email
+    Route::get('/editar-perfil/{user:username}/email','editEmail')
+    ->name('perfil.edit.email');
 
-//cambiar contraseña
-Route::get('/editar-perfil/{user:username}/contraseña',
-[PerfilController::class,'editPassword'])->name('perfil.edit.password');
+    //cambiar contraseña
+    Route::get('/editar-perfil/{user:username}/contraseña','editPassword')
+    ->name('perfil.edit.password');
+});
 
-//contraseña cambiada con exito
-Route::post('/editar-perfil/update-contraseña',
-[ResetPassword::class,'store'])->name('perfil.update.password');
+Route::controller(ResetEmail::class)->group(function(){
+    //email cambiado con exito
+    Route::post('/editar-perfil/update-email','store')
+    ->name('perfil.update.email');
+});
 
-Route::get('/{user:username}', 
-[PostController::class, 'index'])->name('posts.index');
+Route::controller(ResetPassword::class)->group(function(){
+    //contraseña cambiada con exito
+    Route::post('/editar-perfil/update-contraseña','store')
+    ->name('perfil.update.password');
+});
 
-Route::get('/posts/create',
-[PostController::class,'create'])->name('posts.create');
+Route::controller(PostController::class)->group(function(){
 
-Route::post('posts',
-[PostController::class,'store'])->name('post.store');
+    Route::get('/{user:username}','index')
+    ->name('posts.index');
 
-Route::get('/{user:username}/posts/{post}',
-[PostController::class,'show'])->name('posts.show');
+    Route::get('/posts/create','create')
+    ->name('posts.create');
 
-Route::delete('/posts/{post}',
-[PostController::class,'destroy'])->name('posts.destroy');
+    Route::post('posts','store')
+    ->name('post.store');
 
-Route::post('/{user:username}/posts/{post}',
-[ComentarioController::class,'store'])->name('comentarios.store');
+    Route::get('/{user:username}/posts/{post}','show')
+    ->name('posts.show');
 
-Route::post('/imagenes',
-[ImagenController::class,'store'])->name('imagenes.store');
+    Route::delete('/posts/{post}','destroy')
+    ->name('posts.destroy');
+});
 
-//like a las fotos
+Route::controller(ComentarioController::class)->group(function(){
+    Route::post('/{user:username}/posts/{post}','store')
+    ->name('comentarios.store');
+});
 
-Route::post('/posts/{post}/likes',
-[LikeController::class,'store'])->name('posts.likes.store');
+Route::controller(ImagenController::class)->group(function(){
+    Route::post('/imagenes','store')
+    ->name('imagenes.store');
+});
 
-Route::delete('/posts/{post}/likes',
-[LikeController::class,'destroy'])->name('posts.likes.destroy');
 
-//siguiendo usuarios
-Route::post('/{user:username}/follow',
-[FollowerController::class,'store'])->name('users.follow');
+Route::controller(FollowerController::class)->group(function(){
+    //siguiendo usuarios
+    Route::post('/{user:username}/follow','store')
+    ->name('users.follow');
 
-Route::delete('/{user:username}/unfollow',
-[FollowerController::class,'destroy'])->name('users.unfollow');
+    Route::delete('/{user:username}/unfollow','destroy')
+    ->name('users.unfollow');
+});
+
+
+
+
+
+
+

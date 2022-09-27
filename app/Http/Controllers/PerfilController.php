@@ -19,7 +19,7 @@ class PerfilController extends Controller
     {
         return view('perfil.index');
     }
-    
+
     public function store(Request $request)
     {
         $request->request->add(['username'=>Str::slug($request->username)]);
@@ -47,7 +47,7 @@ class PerfilController extends Controller
 
     public function editEmail()
     {
-        
+
         return view('perfil.cambiar-email');
     }
 
