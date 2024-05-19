@@ -18,7 +18,6 @@ class LoginController extends Controller
             'password'=>'required'
         ]);
 
-        
         //verificacion que el email y pass coincidan con la autenticacion
         if(!auth()->attempt($request->only('email','password'), $request->remember)){
             return back()->with('mensaje','Credenciales Incorrectas');
