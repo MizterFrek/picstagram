@@ -40,15 +40,18 @@
                 </nav>
             @endauth
             @guest
-                <nav class="flex gap-2 items-center">
-                    <a class="font-bold uppercase text-gray-600 text-sm" href="{{route('login')}}">Login
-                    </a>
-                    <a class="font-bold uppercase text-gray-600 text-sm" href="{{route('register')}}">Crear cuenta
-                    </a>
+                <nav class="flex gap-4 items-center">
+                    @if(request()->routeIs('login'))
+                        <a class="w-36 text-sm font-bold text-center bg-white hover:bg-sky-600 hover:text-white transition-colors cursor-pointer border border-sky-600 uppercase px-3 py-2 text-sky-600 rounded-md" href="{{route('register')}}">
+                            Crear cuenta
+                        </a>    
+                    @else
+                        <a class="w-36 text-sm font-bold text-center bg-white hover:bg-sky-600 hover:text-white transition-colors cursor-pointer border border-sky-600 uppercase px-3 py-2 text-sky-600 rounded-md" href="{{route('login')}}">
+                            Login
+                        </a>
+                    @endif
                 </nav>
             @endguest
-          
-            
         </div>
        </header>
        <main class="container mx-auto mt-10">
