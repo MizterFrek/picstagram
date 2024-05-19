@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('titulo')
-    Regístrate en Devstagram
+    Regístrate en {{ config('app.name') }}
 @endsection
 
 @section('contenido')
     <div class="md:flex md:justify-center md:gap-10 md:items-center">
         <div class="md:w-6/12 p-5">
-            <img src="{{asset('img/registrar.jpg')}}" alt="Imagen Registro de usuarios">
+            <img src="{{asset('img/registrar.svg')}}" alt="Imagen Registro de usuarios">
         </div>
         <div class="md:w-5/12 bg-white p-6 rounded-lg shadow-xl">
         <form action="/crear-cuenta" method="POST" novalidate>
