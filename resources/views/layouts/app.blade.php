@@ -12,8 +12,8 @@
     <body class="bg-gray-100">
        <header class="p-5 border-b bg-white shadow">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="{{route('home')}}" class="text 3xl font-black">
-                {{ config('app.name') }}
+            <a href="{{route('home')}}">
+                <img src="{{asset('img/logo.png')}}" class="h-10" style="filter: brightness(1.1); mix-blend-mode: multiply;">
             </a>
             @auth
                 <nav class="flex gap-2 items-center">
