@@ -11,12 +11,17 @@
     </head>
     <body class="bg-gray-100">
        <header class="p-5 border-b bg-white shadow">
-        <div class="container mx-auto flex justify-between items-center">
+        <div class="md:hidden mb-5">
             <a href="{{route('home')}}">
                 <img src="{{asset('img/logo.png')}}" class="h-10" style="filter: brightness(1.1); mix-blend-mode: multiply;">
             </a>
+        </div>
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{{route('home')}}" class="hidden md:block">
+                <img src="{{asset('img/logo.png')}}" class="h-10" style="filter: brightness(1.1); mix-blend-mode: multiply;">
+            </a>
             @auth
-                <nav class="flex gap-2 items-center">
+                <nav class="flex gap-10 items-center justify-between w-full md:w-auto">
                     <a 
                     href="{{route('posts.create')}}"
                     class="flex items-center gap-2 bg-white border p-2 text-gray-600 rounded text-sm uppercase font-bold cursor-pointer"
